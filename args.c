@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 19:25:44 by isakrout          #+#    #+#             */
-/*   Updated: 2025/04/18 10:22:17 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:06:26 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ void    ft_fill_args(char **av, t_main_st *main_st, int ac)
     main_st->time_to_sleep = ft_atoi(av[3]);
     if (ac == 6)
         main_st->number_of_times_each_philo_must_eat = ft_atoi(av[4]);
+    else
+        main_st->number_of_times_each_philo_must_eat = -1;
 }
