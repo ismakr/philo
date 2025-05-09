@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:28:15 by isakrout          #+#    #+#             */
-/*   Updated: 2025/04/13 15:37:46 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:01:38 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,4 @@ long int	ft_atoi(const char *nptr)
 		nptr++;
 	}
 	return (res * sign);
-}
-
-void    ft_free_split(char **av)
-{
-    int i;
-
-    i = 0;
-    while (av[i])
-    {
-        free(av[i]);
-        i++;
-    }
-    free(av);
 }

@@ -1,4 +1,4 @@
-C_FILES = ft_strjoin.c parse_utils.c args.c main.c ft_split.c
+C_FILES = parse.c parse_utils.c threads_logic.c threads_logic_utils.c threads_create.c main.c
 O_FILES = $(C_FILES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -pthread -g

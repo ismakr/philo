@@ -23,3 +23,9 @@ int main()
     // timetaken = (timetaken + (tt.tv_usec - tv.tv_usec) )/ 1000;
     printf("%ld\n " ,end  - start);
 }
+
+
+
+/*
+
+*/
