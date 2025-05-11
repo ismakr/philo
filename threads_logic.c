@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:36:09 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/11 09:38:47 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:51:29 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void    *monitor_thread(void *arg)
     t_philo *philos;
     int i;
     philos = (t_philo *)arg;
-    if (philos->main_st->number_of_times_each_philo_must_eat == 0)
-        return (NULL);
+    // if (philos->main_st->number_of_times_each_philo_must_eat == 0)
+    //     return (NULL);
     while (1)
     {
         i = 0;

@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:07:27 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/09 19:32:23 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 10:48:11 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,6 @@ int    ft_initialize(pthread_t *philos, t_philo  *philos_prop, t_main_st *main_s
     return (0);
 }
 
-void    ft_init_last_eat(t_philo *philos)
-{
-    int i;
-
-    i = 0;
-    while (i < philos->main_st->number_of_philosophers)
-    {
-        philos[i].last_eat_time = ft_time();
-        i++;
-    }
-}
 
 void    ft_create_threads(t_main_st *main_st)
 {
@@ -86,14 +75,14 @@ void    ft_create_threads(t_main_st *main_st)
         return ;
     //create threads and start simulation
     main_st->start = ft_time();
-    ft_init_last_eat(philos_prop);
-    pthread_create(&monitor, NULL, monitor_thread, philos_prop);
     i = 0;
     while (i < main_st->number_of_philosophers)
     {
+        philos_prop[i].last_eat_time = ft_time();
         pthread_create(&philos[i], NULL, philo_thread, &philos_prop[i]);
         i++;
     }
+    pthread_create(&monitor, NULL, monitor_thread, philos_prop);
     i = 0;
     while (i < main_st->number_of_philosophers)
     {
