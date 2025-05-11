@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:54:36 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/09 19:30:27 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:12:50 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void    *monitor_thread(void *arg);
 void    *philo_thread(void  *arg);
 void    ft_sleep(t_philo *philo, long time);
 /*threads logic utils*/
+void    ft_one_philo(t_philo *philo);
 int    ft_sleeping(t_philo *philo);
 int    ft_eating(t_philo *philo);
 int    ft_thinking(t_philo *philo);

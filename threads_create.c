@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:07:27 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/11 10:48:11 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:27:51 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void    ft_create_threads(t_main_st *main_st)
         pthread_create(&philos[i], NULL, philo_thread, &philos_prop[i]);
         i++;
     }
-    pthread_create(&monitor, NULL, monitor_thread, philos_prop);
     i = 0;
+    pthread_create(&monitor, NULL, monitor_thread, philos_prop);
     while (i < main_st->number_of_philosophers)
     {
         pthread_join(philos[i], NULL);

@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:38:16 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/11 10:56:15 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 15:39:49 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void   ft_print(t_philo *philo, char *message)
     pthread_mutex_unlock(&philo->main_st->is_died_mutex);
 }
 
-int    ft_take_forks(t_philo *philo)
+int ft_take_forks(t_philo *philo)
 {
     if (ft_is_died(philo) == 1)
         return (1);
@@ -53,6 +53,7 @@ int    ft_take_forks(t_philo *philo)
         pthread_mutex_lock(philo->r_fork);
         ft_print(philo, "has taken a fork");
     }
+    philo->last_eat_time = ft_time();
     return (0);
 }
 
@@ -76,15 +77,15 @@ int    ft_eating_utils(t_philo *philo)
     philo->last_eat_time = ft_time();
     philo->meal_number += 1;
     pthread_mutex_unlock(&philo->eat_flag);
-    ft_print(philo, "is eating");
     if (philo->main_st->number_of_times_each_philo_must_eat != -1)
     {
         pthread_mutex_lock(&philo->main_st->full_state_mutex);
         if (philo->meal_number >= philo->main_st->number_of_times_each_philo_must_eat)
-        philo->main_st->full_state++;
-        printf("========================%d\n" ,   philo->main_st->full_state);
+            philo->main_st->full_state++;
+        //printf("========================%d\n" ,   philo->main_st->full_state);
         pthread_mutex_unlock(&philo->main_st->full_state_mutex);
     }
+    ft_print(philo, "is eating");
     usleep(philo->main_st->time_to_eat * 1000);
     return (0);
 }
@@ -93,11 +94,6 @@ int    ft_eating(t_philo *philo)
 {
     if (ft_is_died(philo) == 1)
         return (1);
-    if (philo->main_st->number_of_philosophers == 1)
-    {
-        ft_one_philo(philo);
-        return (1);
-    }
     if (ft_take_forks(philo) == 1)
         return (1);
     if (ft_eating_utils(philo) == 1)
