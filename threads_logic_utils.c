@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:38:16 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/09 19:33:36 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:37:17 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,14 @@ int    ft_thinking(t_philo *philo)
 
 void   ft_print(t_philo *philo, char *message)
 {
-    pthread_mutex_lock(&philo->main_st->print);
-    printf("%ld %d %s\n", ft_time() - philo->main_st->start, philo->id, message);
-    pthread_mutex_unlock(&philo->main_st->print);
+    pthread_mutex_lock(&philo->main_st->is_died_mutex);
+    if (philo->main_st->is_died != 1)
+    {
+        pthread_mutex_lock(&philo->main_st->print);
+        printf("%ld %d %s\n", ft_time() - philo->main_st->start, philo->id, message);
+        pthread_mutex_unlock(&philo->main_st->print);
+    }
+    pthread_mutex_unlock(&philo->main_st->is_died_mutex);
 }
 
 int    ft_take_forks(t_philo *philo)
@@ -68,11 +73,14 @@ int    ft_eating_utils(t_philo *philo)
     philo->last_eat_time = ft_time();
     philo->meal_number += 1;
     ft_print(philo, "is eating");
-    pthread_mutex_lock(&philo->main_st->full_state_mutex);
-    if (philo->main_st->number_of_times_each_philo_must_eat != -1 && philo->meal_number >= philo->main_st->number_of_times_each_philo_must_eat)
-        philo->main_st->full_state++;
-    pthread_mutex_unlock(&philo->main_st->full_state_mutex);
     pthread_mutex_unlock(&philo->eat_flag);
+    if (philo->main_st->number_of_times_each_philo_must_eat != -1)
+    {
+        pthread_mutex_lock(&philo->main_st->full_state_mutex);
+        if (philo->meal_number >= philo->main_st->number_of_times_each_philo_must_eat)
+            philo->main_st->full_state++;
+        pthread_mutex_unlock(&philo->main_st->full_state_mutex);
+    }
     usleep(philo->main_st->time_to_eat * 1000);
     return (0);
 }

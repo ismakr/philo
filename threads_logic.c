@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:36:09 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/09 19:34:15 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/11 09:38:47 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ int    monitor_utils(t_philo *philos)
     return (0);
 }
 
+
+
 void    *monitor_thread(void *arg)
 {
     t_philo *philos;
     int i;
     philos = (t_philo *)arg;
+    if (philos->main_st->number_of_times_each_philo_must_eat == 0)
+        return (NULL);
     while (1)
     {
         i = 0;
@@ -71,10 +75,10 @@ void    *monitor_thread(void *arg)
         pthread_mutex_lock(&philos->main_st->full_state_mutex);
         if (philos->main_st->number_of_times_each_philo_must_eat != -1 && philos->main_st->full_state == philos->main_st->number_of_philosophers)
         {
+            pthread_mutex_unlock(&philos->main_st->full_state_mutex);
             pthread_mutex_lock(&philos->main_st->is_died_mutex);
             philos->main_st->is_died = 1;
             pthread_mutex_unlock(&philos->main_st->is_died_mutex);
-            pthread_mutex_unlock(&philos->main_st->full_state_mutex);
             return (NULL);
         }
         pthread_mutex_unlock(&philos->main_st->full_state_mutex);
@@ -87,6 +91,8 @@ void    *philo_thread(void  *arg)
     t_philo  *philo;
 
     philo = (t_philo*)arg;
+    if (philo->main_st->number_of_times_each_philo_must_eat == 0)
+        return (NULL);
     while (ft_is_died(philo) != 1)
     {
         if (ft_thinking(philo) == 1)
