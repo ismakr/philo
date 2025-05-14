@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 15:28:15 by isakrout          #+#    #+#             */
-/*   Updated: 2025/04/25 10:01:38 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:18:18 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return ((void *)p);
 }
 
-long int	ft_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
 	long int	res;
 	int			sign;
