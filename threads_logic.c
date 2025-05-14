@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:36:09 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/11 16:02:32 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:36:53 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int    monitor_utils(t_philo *philos)
         {
             pthread_mutex_lock(&philos->main_st->is_died_mutex);
             pthread_mutex_lock(&philos->main_st->print);
-            printf("%ld %d %s\n", ft_time() - philos->main_st->start, philos[i].id, "is died");
+            printf("%ld %d %s\n", ft_time() - philos->main_st->start, philos[i].id, "died");
             pthread_mutex_unlock(&philos->main_st->print);
             philos->main_st->is_died = 1;
             pthread_mutex_unlock(&philos->main_st->is_died_mutex);
@@ -36,8 +36,6 @@ int    monitor_utils(t_philo *philos)
     }
     return (0);
 }
-
-
 
 void    *monitor_thread(void *arg)
 {
@@ -88,4 +86,18 @@ void    *philo_thread(void  *arg)
             break;
     }
     return (NULL);
+}
+
+void   ft_print(t_philo *philo, char *message)
+{
+    if (ft_is_died(philo) == 1)
+        return;
+    pthread_mutex_lock(&philo->main_st->is_died_mutex);
+    if (philo->main_st->is_died != 1)
+    {
+        pthread_mutex_lock(&philo->main_st->print);
+        printf("%ld %d %s\n", ft_time() - philo->main_st->start, philo->id, message);
+        pthread_mutex_unlock(&philo->main_st->print);
+    }
+    pthread_mutex_unlock(&philo->main_st->is_died_mutex);
 }

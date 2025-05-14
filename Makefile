@@ -1,4 +1,4 @@
-C_FILES = parse.c parse_utils.c threads_logic.c threads_logic_utils.c threads_create.c main.c
+C_FILES = parse.c parse_utils.c threads_logic.c threads_logic_utils.c threads_create.c main.c threads_create_utils.c
 O_FILES = $(C_FILES:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -pthread -g

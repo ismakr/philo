@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:54:36 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/11 15:12:50 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/14 10:27:33 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int    ft_initialize(pthread_t *philos, t_philo  *philos_prop, t_main_st *main_s
 int    ft_init_forks(t_main_st *main_st);
 void    ft_philo_init(t_philo *ph_prop, t_main_st *main_st);
 void    ft_init_last_eat(t_philo *philos);
+/*create threads utils*/
+void    ft_create_threads_utils(t_philo *philos_prop, pthread_t *philos);
+void    ft_free(pthread_t *philos, t_philo *philos_prop);
 /*threads logic*/
 void    *monitor_thread(void *arg);
 void    *philo_thread(void  *arg);
@@ -71,6 +74,5 @@ void    ft_one_philo(t_philo *philo);
 int    ft_sleeping(t_philo *philo);
 int    ft_eating(t_philo *philo);
 int    ft_thinking(t_philo *philo);
-void    ft_free(pthread_t *philos, t_philo *philos_prop);
 void   ft_print(t_philo *philo, char *message);
 #endif
