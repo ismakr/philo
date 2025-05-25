@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:38:16 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/14 10:39:49 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/25 22:52:49 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int	ft_thinking(t_philo *philo)
 	if (ft_is_died(philo) == 1)
 		return (1);
 	ft_print(philo, "is thinking");
+	// if (philo->main_st->time_to_sleep < philo->main_st->time_to_eat)
+	// {
+	// 	usleep((philo->main_st->time_to_eat - philo->main_st->time_to_sleep) * 1000);
+	// }
+	// else
+	 if (philo->main_st->number_of_philosophers % 2 && philo->id % 2)
+	 	usleep(5000);
 	return (0);
 }
 
@@ -33,15 +40,11 @@ int	ft_take_forks(t_philo *philo)
 	}
 	else
 	{
-		usleep(1000);
 		pthread_mutex_lock(philo->l_fork);
 		ft_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->r_fork);
 		ft_print(philo, "has taken a fork");
 	}
-	pthread_mutex_lock(&philo->eat_flag);
-	philo->last_eat_time = ft_time();
-	pthread_mutex_unlock(&philo->eat_flag);
 	return (0);
 }
 
@@ -69,6 +72,8 @@ int	ft_eating_utils(t_philo *philo)
 	}
 	ft_print(philo, "is eating");
 	usleep(philo->main_st->time_to_eat * 1000);
+	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 	return (0);
 }
 
@@ -80,8 +85,6 @@ int	ft_eating(t_philo *philo)
 		return (1);
 	if (ft_eating_utils(philo) == 1)
 		return (1);
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(philo->r_fork);
 	return (0);
 }
 

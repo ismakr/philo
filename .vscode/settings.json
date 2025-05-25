@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "format": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "philo.h": "c"
     }
 }

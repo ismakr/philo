@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:07:27 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/14 15:54:44 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/24 19:52:54 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	ft_philo_init(t_philo *ph_prop, t_main_st *main_st)
 		(ph_prop + i)->id = n;
 		(ph_prop + i)->main_st = main_st;
 		(ph_prop + i)->r_fork = &main_st->forks[i];
-		(ph_prop + i)->l_fork = &main_st->forks[(i + 1)
-			% main_st->number_of_philosophers];
+		(ph_prop + i)->l_fork = &main_st->forks[(i + 1) % main_st->number_of_philosophers];
 		pthread_mutex_init(&ph_prop[i].eat_flag, NULL);
 		i++;
 		n++;

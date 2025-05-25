@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:36:09 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/14 16:03:06 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/25 22:46:43 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,10 @@ int	monitor_utils(t_philo *philos)
 void	*monitor_thread(void *arg)
 {
 	t_philo		*philos;
-	int			i;
 
 	philos = (t_philo *)arg;
 	while (1)
 	{
-		i = 0;
 		if (monitor_utils(philos) == 1)
 			return (NULL);
 		pthread_mutex_lock(&philos->main_st->full_state_mutex);
@@ -55,7 +53,7 @@ void	*monitor_thread(void *arg)
 			&& philos->main_st->full_state
 			>= philos->main_st->number_of_philosophers)
 		{
-			printf("%d\n", philos->main_st->full_state);
+			// printf("%d\n", philos->main_st->full_state);
 			pthread_mutex_lock(&philos->main_st->is_died_mutex);
 			philos->main_st->is_died = 1;
 			pthread_mutex_unlock(&philos->main_st->is_died_mutex);
@@ -79,13 +77,15 @@ void	*philo_thread(void *arg)
 		ft_one_philo(philo);
 		return (NULL);
 	}
-	while (ft_is_died(philo) != 1)
+	if (philo->id % 2)
+		usleep(1000);
+	while (1)
 	{
-		if (ft_thinking(philo) == 1)
-			break ;
 		if (ft_eating(philo) == 1)
 			break ;
 		if (ft_sleeping(philo) == 1)
+			break ;
+		if (ft_thinking(philo) == 1)
 			break ;
 	}
 	return (NULL);
@@ -93,8 +93,8 @@ void	*philo_thread(void *arg)
 
 void	ft_print(t_philo *philo, char *message)
 {
-	if (ft_is_died(philo) == 1)
-		return ;
+	// if (ft_is_died(philo) == 1)
+	// 	return ;
 	pthread_mutex_lock(&philo->main_st->is_died_mutex);
 	if (philo->main_st->is_died != 1)
 	{

@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 12:54:41 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/14 10:44:24 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:51:40 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ long	ft_time(void)
 
 int	ft_is_died(t_philo *philos)
 {
-	int	died;
-
 	pthread_mutex_lock(&philos->main_st->is_died_mutex);
-	died = philos->main_st->is_died;
+	if (philos->main_st->is_died == 1)
+	{
+		pthread_mutex_unlock(&philos->main_st->is_died_mutex);
+		return (1);
+	}
 	pthread_mutex_unlock(&philos->main_st->is_died_mutex);
-	return (died);
+	return (0);
 }
 
 int	main(int ac, char **av)
