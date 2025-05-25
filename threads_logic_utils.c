@@ -6,7 +6,7 @@
 /*   By: isakrout <isakrout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:38:16 by isakrout          #+#    #+#             */
-/*   Updated: 2025/05/25 22:52:49 by isakrout         ###   ########.fr       */
+/*   Updated: 2025/05/25 23:09:54 by isakrout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int	ft_thinking(t_philo *philo)
 	// }
 	// else
 	 if (philo->main_st->number_of_philosophers % 2 && philo->id % 2)
-	 	usleep(5000);
+	 {
+		if (philo->main_st->time_to_sleep < philo->main_st->time_to_eat)
+			usleep((philo->main_st->time_to_eat - philo->main_st->time_to_sleep) * 1000);
+		usleep(5000);
+	 }
 	return (0);
 }
 
